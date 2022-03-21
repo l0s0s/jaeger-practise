@@ -4,6 +4,7 @@ go 1.17
 
 require (
 	github.com/gin-gonic/gin v1.7.7
+	github.com/go-playground/assert v1.2.1
 	github.com/stretchr/testify v1.4.0
 )
 
