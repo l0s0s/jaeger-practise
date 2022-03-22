@@ -1,0 +1,29 @@
+name: PR
+
+on:
+  pull_request:
+
+jobs:
+  pr:
+    name: Build & Test & Lint
+     steps:
+      - name: Set up Go 1.x
+        uses: actions/setup-go@v2
+        with:
+          go-version: ^1.17
+        id: go
+
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v2
+
+      - name: Build
+        run: go build -v .
+
+      - name: Test
+        run: |
+          go test -v ./...
+      
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v2
+        with:
+          version: v1.42.1
