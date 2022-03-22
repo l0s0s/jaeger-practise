@@ -6,6 +6,7 @@ import (
 	"github.com/cristalhq/aconfig"
 )
 
+// Config describes application config.
 type Config struct {
 	Jaeger struct {
 		URL string `env:"URL"`
@@ -18,6 +19,7 @@ type Config struct {
 	NextURL string `env:"NEXT_URL"`
 }
 
+// Parse configs from environment. Shuts down the application if something goes wrong.
 func Parse() Config {
 	var cfg Config
 

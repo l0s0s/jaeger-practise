@@ -23,6 +23,7 @@ func startMockServer() string {
 	r.GET("/", func(ctx *gin.Context) { ctx.Status(http.StatusOK) })
 
 	ts := httptest.NewServer(r)
+
 	return ts.URL + "/"
 }
 

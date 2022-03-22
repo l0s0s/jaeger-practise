@@ -2,11 +2,12 @@ package main
 
 import (
 	"context"
-	"log"
+	"os"
 	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-logr/logr"
+	"github.com/rs/zerolog"
 	"go.opentelemetry.io/contrib/instrumentation/github.com/gin-gonic/gin/otelgin"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
@@ -33,15 +34,18 @@ func tracerProvider(c config.Config) (*trace.TracerProvider, error) {
 			attribute.String("ID", c.Service.ID),
 		)),
 	)
+
 	return tp, nil
 }
 
 func main() {
 	c := config.Parse()
 
+	log := zerolog.New(os.Stderr).Level(zerolog.ErrorLevel)
+
 	tp, err := tracerProvider(c)
 	if err != nil {
-		log.Fatal(err)
+		log.Error().Err(err).Msg("failed to init trace provider")
 	}
 
 	otel.SetTracerProvider(tp)
@@ -54,7 +58,7 @@ func main() {
 		defer cancel()
 
 		if err := tp.Shutdown(ctx); err != nil {
-			log.Fatal(err)
+			log.Error().Err(err).Msg("failed to shutdown trace provider")
 		}
 	}()
 
@@ -66,6 +70,6 @@ func main() {
 	s.BindRoutes(&r.RouterGroup)
 
 	if err := r.Run(c.Service.Port); err != nil {
-		log.Fatal(err)
+		log.Error().Err(err).Msg("failed to listen and serve")
 	}
 }

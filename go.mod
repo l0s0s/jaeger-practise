@@ -7,11 +7,13 @@ require (
 	github.com/gin-gonic/gin v1.7.7
 	github.com/go-logr/logr v1.2.2
 	github.com/go-playground/assert v1.2.1
+	github.com/rs/zerolog v1.26.1
 	github.com/stretchr/testify v1.7.0
 	go.opentelemetry.io/contrib/instrumentation/github.com/gin-gonic/gin/otelgin v0.30.0
 	go.opentelemetry.io/otel v1.5.0
 	go.opentelemetry.io/otel/exporters/jaeger v1.5.0
 	go.opentelemetry.io/otel/sdk v1.5.0
+	go.opentelemetry.io/otel/trace v1.5.0
 )
 
 require (
@@ -31,10 +33,8 @@ require (
 	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/ugorji/go/codec v1.1.7 // indirect
-	go.opentelemetry.io/otel/trace v1.5.0 // indirect
-	golang.org/x/crypto v0.0.0-20210817164053-32db794688a5 // indirect
+	golang.org/x/crypto v0.0.0-20211215165025-cf75a172585e // indirect
 	golang.org/x/sys v0.0.0-20211210111614-af8b64212486 // indirect
-	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
 	gopkg.in/check.v1 v1.0.0-20200227125254-8fa46927fb4f // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
