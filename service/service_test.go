@@ -1,16 +1,18 @@
-package servicea_test
+package service_test
 
 import (
 	"bytes"
 	"context"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"testing"
 
 	"github.com/gin-gonic/gin"
-	servicea "github.com/l0s0s/jaeger-practise/service-a"
-	"github.com/stretchr/testify/assert"
+	"github.com/go-playground/assert"
+	"github.com/l0s0s/jaeger-practise/service"
 	"github.com/stretchr/testify/require"
+	"go.opentelemetry.io/otel/trace"
 )
 
 func startMockServer() string {
@@ -39,13 +41,13 @@ func TestHTTPServer_Talk(t *testing.T) {
 		t.Run(tc.testName, func(t *testing.T) {
 			r := gin.New()
 
-			h := servicea.NewHTTPServer(tc.talkEndpoint)
+			h := service.NewHTTPServer("test", os.Getenv(tc.talkEndpoint), trace.NewNoopTracerProvider())
 
 			h.BindRoutes(&r.RouterGroup)
 
 			ts := httptest.NewServer(r)
 
-			req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, ts.URL+"/service-a/api/v1/talk", &bytes.Reader{})
+			req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, ts.URL+"/service/test/api/v1/talk", &bytes.Reader{})
 			require.NoError(t, err)
 
 			client := http.Client{}
