@@ -6,6 +6,7 @@ on:
 jobs:
   pr:
     name: Build & Test & Lint
+    runs-on: ubuntu-20.04
     steps:
       - name: Set up Go 1.x
         uses: actions/setup-go@v2
